@@ -85,7 +85,6 @@ public class CuentaBancaria {
         return String.format("ID:%d - %s (%s) - Saldo: %.2f", id, cliente, tipo, saldo);
     }
 
-    // ======================== CLASE TRANSACCIÓN ===========================
     static class Transaccion {
         private final String tipo;
         private final double monto;
@@ -104,12 +103,10 @@ public class CuentaBancaria {
         }
     }
 
-    // ======================== EXCEPCIÓN PERSONALIZADA ======================
     public static class InsufficientFundsException extends Exception {
         public InsufficientFundsException(String msg) { super(msg); }
     }
 
-    // ======================== CLASE BANCO ===========================
     static class Banco {
         private final Map<Integer, CuentaBancaria> cuentas = new LinkedHashMap<>();
 
@@ -128,7 +125,6 @@ public class CuentaBancaria {
         }
     }
 
-    // ======================== MAIN (INTERFAZ CON EL USUARIO) ===========================
     public static void main(String[] args) {
         Banco banco = new Banco();
         banco.crearCuenta("Tony Stark", TipoCuenta.CORRIENTE, 1500.00);
@@ -169,7 +165,6 @@ public class CuentaBancaria {
         }
     }
 
-    // ======================== FLUJOS ===========================
     private static void crearCuentaFlow(Scanner sc, Banco banco) {
         System.out.print("Nombre del titular: ");
         String nombre = sc.nextLine().trim();
