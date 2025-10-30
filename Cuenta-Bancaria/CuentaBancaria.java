@@ -85,6 +85,7 @@ public class CuentaBancaria {
         return String.format("ID:%d - %s (%s) - Saldo: %.2f", id, cliente, tipo, saldo);
     }
 
+    // ======================== CLASE TRANSACCIÓN ===========================
     static class Transaccion {
         private final String tipo;
         private final double monto;
@@ -103,10 +104,12 @@ public class CuentaBancaria {
         }
     }
 
+    // ======================== EXCEPCIÓN PERSONALIZADA ======================
     public static class InsufficientFundsException extends Exception {
         public InsufficientFundsException(String msg) { super(msg); }
     }
 
+    // ======================== CLASE BANCO ===========================
     static class Banco {
         private final Map<Integer, CuentaBancaria> cuentas = new LinkedHashMap<>();
 
@@ -125,6 +128,7 @@ public class CuentaBancaria {
         }
     }
 
+    // ======================== MAIN (INTERFAZ CON EL USUARIO) ===========================
     public static void main(String[] args) {
         Banco banco = new Banco();
         banco.crearCuenta("Tony Stark", TipoCuenta.CORRIENTE, 1500.00);
@@ -150,42 +154,22 @@ public class CuentaBancaria {
                 catch (NumberFormatException e) { System.out.println("Opción inválida."); continue; }
 
                 switch (opcion) {
-                    case 1:
-                        crearCuentaFlow(sc, banco);
-                        break;
-                    case 2:
-                        consultarSaldoFlow(sc, banco);
-                        break;
-                    case 3:
-                        retirarFlow(sc, banco);
-                        break;
-                    case 4:
-                        depositarFlow(sc, banco);
-                        break;
-                    case 5:
-                        transferirFlow(sc, banco);
-                        break;
-                    case 6:
-                        historialFlow(sc, banco);
-                        break;
-                    case 7:
-                        interesFlow(sc, banco);
-                        break;
-                    case 8:
-                        listarFlow(banco);
-                        break;
-                    case 9:
-                        System.out.println("Saliendo...");
-                        return; // sale del main
-                    default:
-                        System.out.println("Opción no válida.");
-                        break;
-
+                    case 1 -> crearCuentaFlow(sc, banco);
+                    case 2 -> consultarSaldoFlow(sc, banco);
+                    case 3 -> retirarFlow(sc, banco);
+                    case 4 -> depositarFlow(sc, banco);
+                    case 5 -> transferirFlow(sc, banco);
+                    case 6 -> historialFlow(sc, banco);
+                    case 7 -> interesFlow(sc, banco);
+                    case 8 -> listarFlow(banco);
+                    case 9 -> { System.out.println("Saliendo..."); return; }
+                    default -> System.out.println("Opción no válida.");
                 }
             }
         }
     }
 
+    // ======================== FLUJOS ===========================
     private static void crearCuentaFlow(Scanner sc, Banco banco) {
         System.out.print("Nombre del titular: ");
         String nombre = sc.nextLine().trim();
